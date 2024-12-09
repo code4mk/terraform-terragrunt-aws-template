@@ -1,5 +1,6 @@
 variable "AWS_SECRET_ACCESS_KEY" {
   description = "AWS Secret Access Key"
+  default = ""
 }
 
 
@@ -22,28 +23,6 @@ variable "vpc_name" {
 }
 
 variable "vpc_tags" {
-  type    = map(string)
-  default = {}
-}
-
-variable "subnet_cidrs" {
-  type = list(string)
-}
-
-variable "subnet_availability_zones" {
-  type = list(string)
-}
-
-variable "subnet_map_public_ip_on_launch" {
-  type    = bool
-  default = false
-}
-
-variable "subnet_name_prefix" {
-  type = string
-}
-
-variable "subnet_tags" {
   type    = map(string)
   default = {}
 }
