@@ -1,7 +1,7 @@
 # Define the Terraform backend configuration to use Terraform Cloud
 locals {
-  organization = "kintaro"
-  workspace_tags = "kintaro_devops"
+  organization = "code4mk"
+  workspace_tags = "infra-aws-devops"
 }
 
 

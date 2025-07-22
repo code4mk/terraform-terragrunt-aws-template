@@ -1,17 +1,17 @@
 {
   "terraform_version": "1.8.0",
   "terragrunt_version": "0.57.0",
-  "branches": {
+  "environments": {
     "main": {
-      "TF_WORKSPACE": "prod-project",
-      "TG_WORKDIR": "environment/stage"
+      "TF_WORKSPACE": "infra-aws-prod",
+      "TG_WORKDIR": "environment/prod"
     },
     "stage": {
-      "TF_WORKSPACE": "stage-project",
+      "TF_WORKSPACE": "infra-aws-stage",
       "TG_WORKDIR": "environment/stage"
     },
     "dev": {
-      "TF_WORKSPACE": "dev-project",
+      "TF_WORKSPACE": "infra-aws-dev",
       "TG_WORKDIR": "environment/dev"
     }
   }

@@ -16,21 +16,21 @@ echo "This script helps manage Terragrunt operations across different environmen
 # Prompt user to pick an environment
 echo -e "\n=== Environment Selection ==="
 echo "Available environments:"
-for env in $(jq -r '.branches | keys | .[]' "$CONFIG_FILE"); do
+for env in $(jq -r '.environments | keys | .[]' "$CONFIG_FILE"); do
   echo " - $env"
 done
 
 read -p "Select an environment: " ENVIRONMENT
 
 # Validate the selected environment
-if ! jq -e ".branches.$ENVIRONMENT" "$CONFIG_FILE" > /dev/null; then
+if ! jq -e ".environments.$ENVIRONMENT" "$CONFIG_FILE" > /dev/null; then
   echo "Error: Invalid environment '$ENVIRONMENT'. Please run the script again and choose a valid environment."
   exit 1
 fi
 
 # Extract configurations from config.json
-TF_WORKSPACE=$(get_json_value ".branches.$ENVIRONMENT.TF_WORKSPACE" "$CONFIG_FILE")
-TG_WORKDIR=$(get_json_value ".branches.$ENVIRONMENT.TG_WORKDIR" "$CONFIG_FILE")
+TF_WORKSPACE=$(get_json_value ".environments.$ENVIRONMENT.TF_WORKSPACE" "$CONFIG_FILE")
+TG_WORKDIR=$(get_json_value ".environments.$ENVIRONMENT.TG_WORKDIR" "$CONFIG_FILE")
 TF_VERSION=$(get_json_value ".terraform_version" "$CONFIG_FILE")
 TG_VERSION=$(get_json_value ".terragrunt_version" "$CONFIG_FILE")
 
@@ -49,7 +49,12 @@ case $ACTION in
   plan|apply)
     echo -e "\n=== Symlinking Modules ==="
     echo "Creating symbolic links for modules..."
-    ./symlink-modules.sh
+    ./scripts/symlink-modules.sh
+    echo "Symlinking completed."
+
+    echo -e "\n=== Symlinking Common ==="
+    echo "Creating symbolic links for common..."
+    ./scripts/symlink-common.sh
     echo "Symlinking completed."
     ;;
   destroy)
