@@ -7,7 +7,7 @@ on:
         description: "Environment to run the workflow for"
         required: true
         default: "dev"
-        type: string
+        type: choice
         options: [dev, stage, prod]
 
 jobs:
