@@ -9,7 +9,12 @@ on:
         default: "dev"
         type: choice
         options: [dev, stage, prod]
-
+      action_type:
+        description: "Action type to run"
+        required: true
+        default: "plan"
+        type: choice
+        options: [plan, apply, destroy]
 jobs:
   terraform:
     runs-on: ubuntu-latest
@@ -82,8 +87,8 @@ jobs:
       - name: Terragrunt Plan
         run: |
           cd "${{ github.workspace }}/${{ env.TG_WORKDIR }}"
-          terragrunt plan --terragrunt-non-interactive
-          echo "📝 Terragrunt plan completed!"
+          terragrunt ${{ github.event.inputs.action_type }} --terragrunt-non-interactive --auto-approve
+          echo "📝 Terragrunt ${{ github.event.inputs.action_type }} completed!"
 
       - name: Display success message
         if: ${{ github.event_name == 'workflow_dispatch' }}
