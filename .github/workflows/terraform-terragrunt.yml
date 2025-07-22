@@ -1,12 +1,14 @@
 name: Terraform Terragrunt Action
 
 on:
-  # push:
-  #   branches:
-  #     - main
-  #     - stage
-  #     - dev
   workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment to run the workflow for"
+        required: true
+        default: "dev"
+        type: string
+        options: [dev, stage, prod]
 
 jobs:
   terraform:
@@ -26,15 +28,25 @@ jobs:
           CONFIG_FILE="${GITHUB_WORKSPACE}/config.json"
           TF_VERSION=$(jq -r '.terraform_version' $CONFIG_FILE)
           TG_VERSION=$(jq -r '.terragrunt_version' $CONFIG_FILE)
-          BRANCH_NAME=${GITHUB_REF#refs/heads/}
-          BRANCH_CONFIG=$(jq -r --arg branch "$BRANCH_NAME" '.environments[$branch] // .environments.default' $CONFIG_FILE)
-          TF_WORKSPACE=$(echo $BRANCH_CONFIG | jq -r '.TF_WORKSPACE')
-          TG_WORKDIR=$(echo $BRANCH_CONFIG | jq -r '.TG_WORKDIR')
+          ENVIRONMENT="${{ github.event.inputs.environment }}"
+          
+          # Map 'prod' input to 'main' config key
+          if [ "$ENVIRONMENT" = "prod" ]; then
+            CONFIG_KEY="main"
+          else
+            CONFIG_KEY="$ENVIRONMENT"
+          fi
+          
+          ENV_CONFIG=$(jq -r --arg env "$CONFIG_KEY" '.environments[$env]' $CONFIG_FILE)
+          TF_WORKSPACE=$(echo $ENV_CONFIG | jq -r '.TF_WORKSPACE')
+          TG_WORKDIR=$(echo $ENV_CONFIG | jq -r '.TG_WORKDIR')
 
           echo "TF_WORKSPACE=$TF_WORKSPACE" >> $GITHUB_ENV
           echo "TG_WORKDIR=$TG_WORKDIR" >> $GITHUB_ENV
           echo "TF_VERSION=$TF_VERSION" >> $GITHUB_ENV
           echo "TG_VERSION=$TG_VERSION" >> $GITHUB_ENV
+          echo "TERRAFORM_ORG_NAME=${{ env.TERRAFORM_ORG_NAME }}" >> $GITHUB_ENV
+          echo "TERRAFORM_WORKSPACE_TAGS=${{ env.TERRAFORM_WORKSPACE_TAGS }}" >> $GITHUB_ENV
 
       - name: Set up Terraform CLI
         uses: hashicorp/setup-terraform@v3
