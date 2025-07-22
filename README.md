@@ -129,6 +129,23 @@ Here is the format for `config.json`:
   }
 }
 ```
+---
 
+## 💼 Professional Services
+
+### Need Help with Your Infrastructure?
+
+I'm available for hire to help with your Terraform, Terragrunt, and AWS infrastructure projects.
+
+**Services offered:**
+- Infrastructure as Code (IaC) development
+- AWS cloud architecture and deployment
+- Terraform/Terragrunt consulting and best practices
+- CI/CD pipeline setup and optimization
+- Infrastructure troubleshooting and optimization
+
+**📧 Contact:** hiremostafa@gmail.com
+
+---
 
 
