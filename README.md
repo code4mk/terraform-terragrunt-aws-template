@@ -1,9 +1,11 @@
 # terraform-terragrunt-aws-project
 
+A Terraform and Terragrunt project for managing AWS infrastructure across multiple environments (dev, stage, prod).
+
 # Directory Structure
 
 - `modules/` — Reusable Terraform modules (`vpc`, `subnet`, etc.)
-- `projects/`
+- `projects/` - Terraform related code per environment
   - `common/` — Shared code across all environments
   - `dev/`, `stage/`, `prod/` — Environment-specific code
     - `modules/` — Symlinks to root-level modules
@@ -30,22 +32,19 @@ terraform-terragrunt-aws-project/
 │
 ├── projects/                          # Terraform project code per environment
 │   ├── common/                        # Shared Terraform configurations
-│   │   └── common-*.tf                # e.g., common-tags.tf, common-provider.tf
-│
+│   │   └── common-*.tf              # e.g., common-tags.tf, common-provider.tf
 │   ├── dev/
 │   │   ├── modules/                   # 🔗 Symlinks to ../../modules/*
 │   │   ├── common-*.tf                # 🔗 Symlinks to ../common/*
 │   │   ├── main.tf
 │   │   ├── variables.tf
 │   │   └── output.tf
-│
 │   ├── stage/
 │   │   ├── modules/                   # 🔗 Symlinks to ../../modules/*
 │   │   ├── common-*.tf                # 🔗 Symlinks to ../common/*
 │   │   ├── main.tf
 │   │   ├── variables.tf
 │   │   └── output.tf
-│
 │   └── prod/
 │       ├── modules/                   # 🔗 Symlinks to ../../modules/*
 │       ├── common-*.tf                # 🔗 Symlinks to ../common/*
@@ -62,9 +61,9 @@ terraform-terragrunt-aws-project/
 │       └── terragrunt.hcl
 │
 └── scripts/                           # Setup automation scripts
-    ├── run.sh                         # ✅ Master script: runs both symlink scripts
-    ├── symlink-common.sh              # 🔁 Symlinks common tf files into all envs
-    └── symlink-modules.sh             # 🔁 Symlinks shared modules into all envs
+    ├── run.sh                     # ✅ Run scripts
+    ├── symlink-common.sh          # 🔁 Symlinks common tf files into all envs
+    └── symlink-modules.sh         # 🔁 Symlinks shared modules into all envs
 ```
 
 ---
