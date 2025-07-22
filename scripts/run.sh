@@ -45,6 +45,17 @@ echo "Terragrunt Version: $TG_VERSION"
 echo -e "\n=== Action Selection ==="
 read -p "Select action (plan/apply/destroy): " ACTION
 
+# Load environment variables from .env file
+if [ -f .env ]; then
+  set -a
+  source .env
+  set +a
+  echo "Environment variables loaded from .env file."
+else
+  echo "No .env file found, Add .env file to the root of the project."
+  exit 1
+fi
+
 case $ACTION in
   plan|apply)
     echo -e "\n=== Symlinking Modules ==="

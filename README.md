@@ -68,21 +68,23 @@ terraform-terragrunt-aws-project/
 
 ---
 
-# Run locally
-
-## update config file
-The `config.json` file contains essential configurations for Terraform and Terragrunt. You should update this file to match your environment and branch-specific settings.
-
 ## Usage
 
-### Create symlinks for modules and common files
-
+1. add symlink for modules and common files
 ```bash
 ./scripts/symlink-modules.sh
 ./scripts/symlink-common.sh
 ```
 
-### Run terragrunt
+2. add .env file to the root of the project
+
+```bash
+TERRAFORM_ORG_NAME=
+TERRAFORM_WORKSPACE_TAGS=
+```
+3. update config.json file
+
+4. run terragrunt with the following command
 ```bash
 ./scripts/run.sh
 ```
@@ -126,6 +128,7 @@ Here is the format for `config.json`:
     }
   }
 }
+```
 
 
 
