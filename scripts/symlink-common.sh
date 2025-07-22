@@ -5,8 +5,8 @@ echo "🔄 Starting common-*.tf symlink creation..."
 echo "--------------------------------------------"
 
 # Define source and project directory
-SOURCE_DIR="projects/common"
-PROJECT_DIR="projects"
+SOURCE_DIR="live/common"
+PROJECT_DIR="live"
 
 # Detect environments (exclude 'common')
 ENVIRONMENTS=($(ls -d $PROJECT_DIR/*/ | xargs -n 1 basename | grep -v '^common$'))

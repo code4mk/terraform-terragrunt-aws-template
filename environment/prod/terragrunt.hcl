@@ -1,5 +1,5 @@
 terraform {
-  source = "../../projects//prod"
+  source = "../../live//prod"
 }
 
 include {

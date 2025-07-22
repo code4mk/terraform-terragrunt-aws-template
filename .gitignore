@@ -1,6 +1,6 @@
-projects/*/modules
-projects/*/common-resources.tf
-!projects/common/common-resources.tf
+live/*/modules
+live/*/common-resources.tf
+!live/common/common-resources.tf
 auto_generated_backend.tf
 
 # Terragrunt specific

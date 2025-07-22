@@ -5,7 +5,7 @@ A Terraform and Terragrunt project for managing AWS infrastructure across multip
 # Directory Structure
 
 - `modules/` — Reusable Terraform modules (`vpc`, `subnet`, etc.)
-- `projects/` - Terraform related code per environment
+- `live/` - Terraform related code per environment
   - `common/` — Shared code across all environments
   - `dev/`, `stage/`, `prod/` — Environment-specific code
     - `modules/` — Symlinks to root-level modules
@@ -30,7 +30,7 @@ terraform-terragrunt-aws-project/
 │       ├── output.tf
 │       └── variables.tf
 │
-├── projects/                          # Terraform project code per environment
+├── live/                          # Terraform project code per environment
 │   ├── common/                        # Shared Terraform configurations
 │   │   └── common-*.tf              # e.g., common-tags.tf, common-provider.tf
 │   ├── dev/
