@@ -1,3 +1,10 @@
+locals {
+  common_tags = {
+    Environment = "prod"
+    ManagedBy   = "terraform"
+  }
+}
+
 provider "aws" {
   region = "us-east-1"
 }
@@ -9,5 +16,5 @@ module "vpc" {
   enable_dns_hostnames = var.vpc_enable_dns_hostnames
   enable_dns_support   = var.vpc_enable_dns_support
   name                 = var.vpc_name
-  tags                 = var.vpc_tags
+  tags                 = merge(var.vpc_tags, local.common_tags)
 }
