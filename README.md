@@ -11,14 +11,14 @@ A Terraform and Terragrunt project for managing AWS infrastructure across multip
     - `modules/` — Symlinks to root-level modules
     - `common-*.tf` — Symlinks to shared `common` configs
 - `environment/` — Contains per-environment `terragrunt.hcl` config
-- `terragrunt.hcl` — Root-level configuration used by all environments
+- `root.hcl` — Root-level configuration used by all environments
 - `scripts/` — Utility scripts for setting up symlinks and running terragrunt
 
 # File structure
 
 ```bash
 terraform-terragrunt-aws-project/
-├── terragrunt.hcl                # Root Terragrunt config (shared by all envs)
+├── root.hcl                # Root Terragrunt config (shared by all envs)
 │
 ├── modules/                           # Reusable Terraform modules
 │   ├── subnet/
@@ -107,8 +107,8 @@ Here is the format for `config.json`:
 
 ```json
 {
-  "terraform_version": "1.8.0",
-  "terragrunt_version": "0.57.0",
+  "terraform_version": "1.12.2",
+  "terragrunt_version": "0.83.2",
   "environments": {
     "main": {
       "TF_WORKSPACE": "infra-aws-prod",
