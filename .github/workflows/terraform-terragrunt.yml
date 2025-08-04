@@ -24,7 +24,7 @@ jobs:
       GITLAB_PROJECT_ID: ${{ secrets.GITLAB_PROJECT_ID }}
       THE_AWS_ACCESS_KEY: ${{ secrets.THE_AWS_ACCESS_KEY }}
       THE_AWS_SECRET_ACCESS_KEY: ${{ secrets.THE_AWS_SECRET_ACCESS_KEY }}
-      TF_WORKSPACE: ${{ github.event.inputs.environment }}
+      THE_TF_WORKSPACE: ${{ github.event.inputs.environment }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
