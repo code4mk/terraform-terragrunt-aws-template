@@ -1,4 +1,4 @@
-# terraform-terragrunt-aws-project
+# terraform-terragrunt-aws-project (gitlab managed state)
 
 A Terraform and Terragrunt project for managing AWS infrastructure across multiple environments (dev, stage, prod).
 
@@ -99,7 +99,11 @@ THE_AWS_SECRET_ACCESS_KEY=""
 
 To ensure that the GitHub Action workflow runs correctly, you need to set up the following GitHub secret:
 
-- **`TF_API_TOKEN`**: This is a Terraform Cloud API token used for authentication.
+- **`GITLAB_USERNAME`**: This is a GitLab username used for authentication.
+- **`GITLAB_ACCESS_TOKEN`**: This is a GitLab access token used for authentication.
+- **`GITLAB_PROJECT_ID`**: This is a GitLab project ID used for authentication.
+- **`THE_AWS_ACCESS_KEY`**: This is a AWS access key used for authentication.
+- **`THE_AWS_SECRET_ACCESS_KEY`**: This is a AWS secret access key used for authentication.
 
 ## Update Config File
 
