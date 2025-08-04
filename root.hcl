@@ -1,27 +1,24 @@
-# Define the Terraform backend configuration to use Terraform Cloud
+# Define the Terraform backend configuration
 locals {
-  organization = get_env("TERRAFORM_ORG_NAME")
-  workspace_tags = get_env("TERRAFORM_WORKSPACE_TAGS")
+  project_id = get_env("GITLAB_PROJECT_ID")
+  workspace = get_env("THE_TF_WORKSPACE")
 }
-
 
 generate "backend" {
   path      = "auto_generated_backend.tf"
   if_exists = "overwrite"
   contents  = <<EOF
 terraform {
-  cloud {
-    organization = "${local.organization}"
-    workspaces {
-      tags = ["${local.workspace_tags}"]
+    backend "http" {
+      address = "https://gitlab.com/api/v4/projects/${local.project_id}/terraform/state/${local.workspace}"
+      lock_address = "https://gitlab.com/api/v4/projects/${local.project_id}/terraform/state/${local.workspace}/lock"
+      unlock_address = "https://gitlab.com/api/v4/projects/${local.project_id}/terraform/state/${local.workspace}/lock"
+      username = "${get_env("GITLAB_USERNAME")}"
+      password = "${get_env("GITLAB_ACCESS_TOKEN")}"
+      lock_method = "POST"
+      unlock_method = "DELETE"
+      retry_wait_min = 5
     }
-  }
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
 }
 EOF
 }

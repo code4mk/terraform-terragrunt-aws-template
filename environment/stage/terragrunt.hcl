@@ -7,14 +7,24 @@ include "root" {
 }
 
 locals {
+  environment = "stage"
   project_name = "Your project name"
 }
 
 inputs = {
+  # Environment name
+  environment                = local.environment
+
+  # AWS credentials
+  aws_region                 = "us-east-1"
+  AWS_ACCESS_KEY             = get_env("THE_AWS_ACCESS_KEY")
+  AWS_SECRET_ACCESS_KEY      = get_env("THE_AWS_SECRET_ACCESS_KEY")
+  
+  # VPC configuration
   vpc_cidr_block             = "10.0.0.0/16"
   vpc_enable_dns_hostnames   = true
   vpc_enable_dns_support     = true
-  vpc_name                   = "stage-vpc"
+  vpc_name                   = "${local.environment}-vpc"
   vpc_tags                   = {
     "ProjectName" = local.project_name
   }

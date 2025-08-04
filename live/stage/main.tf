@@ -1,11 +1,20 @@
 locals {
   common_tags = {
-    Environment = "stage"
+    Environment = var.environment
     ManagedBy   = "terraform"
   }
 }
+
 provider "aws" {
-  region = "us-east-1"
+  region = var.aws_region
+  access_key = var.AWS_ACCESS_KEY
+  secret_key = var.AWS_SECRET_ACCESS_KEY
+}
+
+data "aws_caller_identity" "current" {}
+
+output "aws_account_id" {
+  value = data.aws_caller_identity.current.account_id
 }
 
 module "vpc" {

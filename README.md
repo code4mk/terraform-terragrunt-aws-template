@@ -79,8 +79,12 @@ terraform-terragrunt-aws-project/
 2. add .env file to the root of the project
 
 ```bash
-TERRAFORM_ORG_NAME=
-TERRAFORM_WORKSPACE_TAGS=
+GITLAB_USERNAME=""
+GITLAB_ACCESS_TOKEN=""
+GITLAB_PROJECT_ID=""
+
+THE_AWS_ACCESS_KEY=""
+THE_AWS_SECRET_ACCESS_KEY=""
 ```
 3. update config.json file
 
