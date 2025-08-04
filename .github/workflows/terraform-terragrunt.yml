@@ -22,8 +22,8 @@ jobs:
       GITLAB_USERNAME: ${{ secrets.GITLAB_USERNAME }}
       GITLAB_ACCESS_TOKEN: ${{ secrets.GITLAB_ACCESS_TOKEN }}
       GITLAB_PROJECT_ID: ${{ secrets.GITLAB_PROJECT_ID }}
-      AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      THE_AWS_ACCESS_KEY: ${{ secrets.THE_AWS_ACCESS_KEY }}
+      THE_AWS_SECRET_ACCESS_KEY: ${{ secrets.THE_AWS_SECRET_ACCESS_KEY }}
       TF_WORKSPACE: ${{ github.event.inputs.environment }}
     steps:
       - name: Checkout repository
