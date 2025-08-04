@@ -88,10 +88,16 @@ jobs:
           terragrunt init --non-interactive --upgrade --migrate-state
           echo "🔧 Terragrunt init completed!"
 
-      - name: Terragrunt Plan
+      - name: Terragrunt ${{ github.event.inputs.action_type }}
         run: |
           cd "${{ github.workspace }}/${{ env.TG_WORKDIR }}"
-          terragrunt ${{ github.event.inputs.action_type }} --non-interactive --auto-approve
+          if [ "${{ github.event.inputs.action_type }}" = "destroy" ]; then
+            terragrunt ${{ github.event.inputs.action_type }} --non-interactive --auto-approve
+          elif [ "${{ github.event.inputs.action_type }}" = "apply" ]; then
+            terragrunt ${{ github.event.inputs.action_type }} --non-interactive --auto-approve
+          else
+            terragrunt ${{ github.event.inputs.action_type }} --non-interactive
+          fi
           echo "📝 Terragrunt ${{ github.event.inputs.action_type }} completed!"
 
       - name: Display success message
