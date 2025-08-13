@@ -68,23 +68,64 @@ terraform-terragrunt-aws-project/
 
 ---
 
-## Usage
+# Prerequisites
 
-1. add symlink for modules and common files
+  - [Terraform](https://developer.hashicorp.com/terraform/install)
+  - [Terragrunt](https://terragrunt.gruntwork.io/docs/getting-started/install/)
+
+> Before installation terrafrom and terragrunt, check the [Terragrunt and Terraform version Compatibility](https://terragrunt.gruntwork.io/docs/reference/supported-versions/#supported-terraform-versions)
+
+# Setup
+
+## 1. add symlink for modules and common files
 ```bash
 ./scripts/symlink-modules.sh
 ./scripts/symlink-common.sh
 ```
 
-2. add .env file to the root of the project
+## 2. add .env file to the root of the project
 
 ```bash
 TERRAFORM_ORG_NAME=
 TERRAFORM_WORKSPACE_TAGS=
 ```
-3. update config.json file
+## 3. update config.json file
 
-4. run terragrunt with the following command
+```json
+{
+  "terraform_version": "1.8.0",
+  "terragrunt_version": "0.57.0",
+  "environments": {
+    "main": {
+      "TF_WORKSPACE": "infra-azure-prod",
+      "TG_WORKDIR": "environment/prod"
+    },
+    "stage": {
+      "TF_WORKSPACE": "infra-azure-stage",
+      "TG_WORKDIR": "environment/stage"
+    },
+    "dev": {
+      "TF_WORKSPACE": "infra-azure-dev",
+      "TG_WORKDIR": "environment/dev"
+    },
+    "default": {
+      "TF_WORKSPACE": "default",
+      "TG_WORKDIR": "environment/default"
+    }
+  }
+}
+```
+
+## 4. Add aws environment variables in terraform cloud workspace
+
+### Environment Variables:
+
+- `AWS_ACCESS_KEY_ID` - AWS Access Key ID
+- `AWS_SECRET_ACCESS_KEY` - AWS Secret Access Key
+
+
+## 5. run terragrunt with the following command
+
 ```bash
 ./scripts/run.sh
 ```
@@ -93,9 +134,14 @@ TERRAFORM_WORKSPACE_TAGS=
 
 ## Setting Up GitHub Secrets
 
-To ensure that the GitHub Action workflow runs correctly, you need to set up the following GitHub secret:
+To ensure that the GitHub Action workflow runs correctly, you need to set up the following GitHub secret and variables:
 
+### Secrets:
 - **`TF_API_TOKEN`**: This is a Terraform Cloud API token used for authentication.
+
+### Variables:
+- **`TERRAFORM_ORG_NAME`**: This is the name of the Terraform Cloud organization.
+- **`TERRAFORM_WORKSPACE_TAGS`**: This is the tags of the Terraform Cloud workspace.
 
 ## Update Config File
 
@@ -130,6 +176,9 @@ Here is the format for `config.json`:
 }
 ```
 ---
+
+> [!NOTE]
+> This project intentionally uses a minimal set of Terragrunt features, primarily focusing on environment variable management and configuration inheritance. This approach keeps the infrastructure code simple and maintainable while still leveraging Terragrunt's key benefits for managing multi-environment deployments.
 
 ## 💼 Professional Services
 
